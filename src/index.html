@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>goit-js-hw-11</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <form class="form">
+        <label class="form-label">
+          <p class="label-text">Choose the photo</p>
+          <input
+            class="input-field"
+            type="text"
+            name="query"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
+        </label>
+        <button class="submit-btn" type="submit">Search</button>
+      </form>
+
+      <!-- Елемент для css-loader (стилі в CSS, без зовнішньої бібліотеки) -->
+      <div class="loader-overlay">
+        <span class="loader"></span>
+      </div>
+
+      <!-- Елемент для модалки simplelightbox -->
+      <ul class="gallery"></ul>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-desc">Made with ✨ by Anna K.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
