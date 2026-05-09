@@ -2,7 +2,7 @@
 import './css/styles.css';
 
 // ============ 2. Імпорт функцій ===================//
-import { getImagesByQuery } from './js/pixabay-api.js';
+import { getImagesByQuery, PER_PAGE } from './js/pixabay-api.js';
 import {
   createGallery,
   clearGallery,
@@ -21,11 +21,11 @@ import 'izitoast/dist/css/iziToast.min.css';
 // ============ 4. Глобальні змінні ================//
 const form = document.querySelector('.form');
 const loadMoreBtn = document.querySelector('.load-more');
+const counterDisplay = document.querySelector('.images-counter');
 
 let query = '';
 let page = 1;
 let totalHits = 0; // Для зберігання загальної кількості з відповіді
-let perPage = 15; // Будемо отримувати динамічно з функції
 
 // ============ 5. Слухач події сабміту ============//
 form.addEventListener('submit', async event => {
@@ -44,6 +44,7 @@ form.addEventListener('submit', async event => {
   }
 
   clearGallery();
+  counterDisplay.classList.add('is-hidden'); // Ховаємо при новому пошуку
   hideLoadMoreButton();
   showLoader();
 
@@ -67,17 +68,14 @@ form.addEventListener('submit', async event => {
       return;
     }
 
-    // викликаємо функцію рендеру (завантажує картинки), доповнює галерею
-    createGallery(data.hits);
-
-    // Перевіряємо статус пагінації (керування кнопкою Load More)
-    checkPaginationStatus();
+    createGallery(data.hits); // викликаємо функцію рендеру (завантажує картинки), доповнює галерею
+    updateCounter(); // Оновлюємо підрахунок к-ті зображень
+    checkPaginationStatus(); // Перевіряємо статус пагінації (керування кнопкою Load More)
   } catch (error) {
     iziToast.error({ message: 'Something went wrong!', position: 'topRight' });
   } finally {
-    // Ховаємо лоадер та скидаємо форму
+    // Ховаємо лоадер але форму не скидаємо, щоб зберегти текст запиту в інпуті і користувач міг просто уточнити запит, а не все наново вводити (не робимо: form.reset();)
     hideLoader();
-    form.reset();
   }
 });
 
@@ -92,11 +90,10 @@ if (loadMoreBtn) {
     try {
       const data = await getImagesByQuery(query, page);
 
-      // Додаємо нові зображення до існуючих (рендер)
-      createGallery(data.hits);
+      createGallery(data.hits); // Додаємо нові зображення до існуючих (рендер)
+      updateCounter(); // Оновлюємо підрахунок к-ті зображень
       smoothScroll();
-      // Оновлюємо статус пагінації після дозавантаження
-      checkPaginationStatus();
+      checkPaginationStatus(); // Оновлюємо статус пагінації після дозавантаження
     } catch (error) {
       iziToast.error({
         message: 'Error loading more images!',
@@ -114,7 +111,7 @@ if (loadMoreBtn) {
  * Перевірка статусу пагінації та керування кнопкою Load More
  */
 function checkPaginationStatus() {
-  const totalPages = Math.ceil(totalHits / perPage);
+  const totalPages = Math.ceil(totalHits / PER_PAGE);
 
   if (page >= totalPages) {
     hideLoadMoreButton();
@@ -149,6 +146,49 @@ function smoothScroll() {
   }
 }
 
+// --------------------------------------------------------------------
+// ======== ДОДАТКОВІ НАЛАШТУВАННЯ, НЕ з домашнього завдання ==========
+// -----------  покращення UX (користувацького досвіду)   -------------
+// --------------------------------------------------------------------
+/**
+ * функція для оновлення лічильника
+ */
+function updateCounter() {
+  // Вираховуємо кількість завантажених фото (поточна сторінка * на кількість на сторінці)
+  // Але важливо: якщо це остання сторінка, показуємо не page * 15, а totalHits
+  const loadedImages = Math.min(page * PER_PAGE, totalHits);
+
+  if (totalHits > 0) {
+    counterDisplay.textContent = `${loadedImages} of ${totalHits}`;
+    counterDisplay.classList.remove('is-hidden');
+  } else {
+    counterDisplay.classList.add('is-hidden');
+  }
+}
+
+// ============ Кнопка "Вгору" ===================//
+// ============ Логіка кнопки "Вгору" ============//
+const backToTopBtn = document.querySelector('#backToTop');
+// Слідкуємо за прокруткою сторінки
+window.addEventListener('scroll', () => {
+  // Якщо прокрутили більше ніж на 600px, показуємо кнопку
+  if (window.scrollY > 600) {
+    backToTopBtn.classList.remove('is-hidden');
+  } else {
+    backToTopBtn.classList.add('is-hidden');
+  }
+});
+//
+// ===== Плавний скрол в самий початок при кліку ====//
+//
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // Саме це робить скрол плавним
+  });
+});
+
+//
 /**
   |=======================================
   | ЗАДАНИЕ

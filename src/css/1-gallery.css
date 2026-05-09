@@ -130,8 +130,8 @@ p {
   transform: rotateZ(45deg) !important;
   perspective: 1000px;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 96px; /* Було 48px */
+  height: 96px; /* Було 48px */
   background: transparent !important;
   border: none !important;
 }
@@ -171,8 +171,8 @@ p {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
-  margin-top: -24px !important;
-  margin-left: -24px !important;
+  margin-top: -48px !important;
+  margin-left: -48px !important;
   z-index: 20000 !important;
 }
 
@@ -245,6 +245,53 @@ p {
   display: flex;
   box-sizing: border-box;
   text-align: center;
+}
+
+.images-counter {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #2e2f42;
+  margin: 16px 0;
+}
+
+/* Кнопка "Вгору" - вільна прив'язка */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+
+  background-color: #4e75ff; /* Ваш основний синій */
+  color: #ffffff;
+
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0.8;
+  transition: all 300ms ease;
+}
+
+.back-to-top:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: #6c8cff;
+}
+
+/* Клас для приховування (плавна поява) */
+.back-to-top.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px);
 }
 
 /* ===================== Animations ===================== */
