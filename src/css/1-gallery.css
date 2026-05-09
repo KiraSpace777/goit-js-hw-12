@@ -240,6 +240,8 @@ p {
 }
 
 .footer {
+  margin-top: 8px;
+  margin-bottom: 8px;
   display: flex;
   box-sizing: border-box;
   text-align: center;

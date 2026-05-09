@@ -4,24 +4,20 @@ const API_KEY = '55675951-c5be5de1598e9491b9f323a37';
 const BASE_URL = 'https://pixabay.com/api/';
 
 export async function getImagesByQuery(query, page) {
-  const per_page = 15; // Кількість елементів на сторінку
   const response = await axios.get(BASE_URL, {
     params: {
       key: API_KEY,
       q: query,
       page: page, // поточний номер сторінки
-      per_page: per_page,
+      per_page: 15, // Фіксована кількість
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,
     },
   });
 
-  // Повертаємо об'єкт із даними та значенням perPage для пагінації в main.js
-  return {
-    data: response.data,
-    perPage: per_page,
-  };
+  // Повертаємо повертаємо лише повний об'єкт даних відповіді (response.data)
+  return response.data;
 }
 
 // ========================================================

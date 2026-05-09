@@ -1,6 +1,8 @@
+// ============ 1. Імпорт бібліотек ================//
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+// ============ 2. Глобальні змінні ================//
 const galleryContainer = document.querySelector('.gallery');
 const loaderOverlay = document.querySelector('.loader-overlay');
 const loadMoreBtn = document.querySelector('.load-more'); // Нова кнопка
@@ -11,7 +13,12 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-// Створення галереї
+/**
+ * createGallery(images) - Створює та оновлює розмітку галереї.
+ *
+ * Функція використовується як для початкового рендерингу, так і для додавання нових зображень до існуючого списку. Масив об'єктів зображень отримуємо з бібліотеки Pixabay API
+ */
+
 export function createGallery(images) {
   // ПЕРЕВІРКА: якщо контейнера немає, просто виходимо з функції
   if (!galleryContainer) return;
@@ -46,7 +53,7 @@ export function createGallery(images) {
   galleryContainer.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 
-  // Жодних return! Функція просто виконала роботу.
+  // Відсутній return! Функція просто виконала роботу.
 }
 
 export function clearGallery() {
@@ -55,7 +62,7 @@ export function clearGallery() {
   }
 }
 
-//  Керування анімацією "Loader"
+//  Керування анімацією "Loader" (відобразити / приховати)
 export function showLoader() {
   if (loaderOverlay) loaderOverlay.classList.add('is-active');
 }
@@ -88,6 +95,7 @@ export function hideLoadMoreButton() {
 // showLoadMoreButton(). Ця функція нічого не приймає, повинна додавати клас для відображення кнопки Load more. Нічого не повертає.
 // hideLoadMoreButton(). Ця функція нічого не приймає, повинна прибирати клас для відображення кнопки Load more. Нічого не повертає.
 //
+
 // ------------------------------------------------------------------------------
 //  ================ Завдання -4— Галерея і картки зображень  ==================
 // ------------------------------------------------------------------------------

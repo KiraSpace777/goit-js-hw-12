@@ -25,7 +25,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 let query = '';
 let page = 1;
 let totalHits = 0; // Для зберігання загальної кількості з відповіді
-let perPage = 0; // Будемо отримувати динамічно з функції
+let perPage = 15; // Будемо отримувати динамічно з функції
 
 // ============ 5. Слухач події сабміту ============//
 form.addEventListener('submit', async event => {
@@ -43,22 +43,18 @@ form.addEventListener('submit', async event => {
     return;
   }
 
-  // 1. Очищення старої галереї
   clearGallery();
-  // Приховуємо кнопку перед новим запитом
   hideLoadMoreButton();
-  // 2. Показ CSS-лоадера
   showLoader();
 
   try {
     // Використовуємо async/await для HTTP-запиту
-    const result = await getImagesByQuery(query, page);
+    const data = await getImagesByQuery(query, page);
 
     // Оновлюємо глобальні змінні з отриманих даних
-    totalHits = result.data.totalHits;
-    perPage = result.perPage;
+    totalHits = data.totalHits;
 
-    if (result.data.hits.length === 0) {
+    if (data.hits.length === 0) {
       iziToast.error({
         message:
           'Sorry, there are no images matching your search query. <br> Please try again!',
@@ -71,14 +67,13 @@ form.addEventListener('submit', async event => {
       return;
     }
 
-    // викликаємо функцію рендеру (завантажує картинки)
-    createGallery(result.data.hits);
+    // викликаємо функцію рендеру (завантажує картинки), доповнює галерею
+    createGallery(data.hits);
 
     // Перевіряємо статус пагінації (керування кнопкою Load More)
     checkPaginationStatus();
   } catch (error) {
     iziToast.error({ message: 'Something went wrong!', position: 'topRight' });
-    console.error(error);
   } finally {
     // Ховаємо лоадер та скидаємо форму
     hideLoader();
@@ -95,12 +90,11 @@ if (loadMoreBtn) {
     hideLoadMoreButton(); // Тимчасово ховаємо кнопку
 
     try {
-      const result = await getImagesByQuery(query, page);
+      const data = await getImagesByQuery(query, page);
 
       // Додаємо нові зображення до існуючих (рендер)
-      createGallery(result.data.hits);
+      createGallery(data.hits);
       smoothScroll();
-
       // Оновлюємо статус пагінації після дозавантаження
       checkPaginationStatus();
     } catch (error) {
@@ -108,7 +102,6 @@ if (loadMoreBtn) {
         message: 'Error loading more images!',
         position: 'topRight',
       });
-      console.error(error);
     } finally {
       hideLoader();
     }
