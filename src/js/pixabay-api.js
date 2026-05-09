@@ -3,18 +3,25 @@ import axios from 'axios';
 const API_KEY = '55675951-c5be5de1598e9491b9f323a37';
 const BASE_URL = 'https://pixabay.com/api/';
 
-export function getImagesByQuery(query) {
-  return axios
-    .get(BASE_URL, {
-      params: {
-        key: API_KEY,
-        q: query,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-      },
-    })
-    .then(response => response.data);
+export async function getImagesByQuery(query, page) {
+  const per_page = 15; // Кількість елементів на сторінку
+  const response = await axios.get(BASE_URL, {
+    params: {
+      key: API_KEY,
+      q: query,
+      page: page, // поточний номер сторінки
+      per_page: per_page,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+    },
+  });
+
+  // Повертаємо об'єкт із даними та значенням perPage для пагінації в main.js
+  return {
+    data: response.data,
+    perPage: per_page,
+  };
 }
 
 // ========================================================

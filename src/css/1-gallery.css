@@ -13,7 +13,7 @@
 }
 
 p {
-  color: #4e75ff;
+  color: #5370d6;
 }
 
 .form-label {
@@ -87,6 +87,16 @@ p {
 .submit-btn:focus {
   cursor: pointer;
   background-color: #6c8cff;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  height: 40px;
+  width: 125px;
 }
 
 /* ===================== CSS Loader & Overlay ===================== */
@@ -285,4 +295,9 @@ p {
 /* Текст iziToast на передній план */
 .iziToast-wrapper {
   z-index: 21000 !important;
+}
+
+/* Клас для приховування елементів. Додайте його в кінець CSS */
+.is-hidden {
+  display: none !important;
 }
