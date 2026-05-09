@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>goit-js-hw-11</title>
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-CxFKIfsH.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-BAQQTdrx.js">
     <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-CWKLx11g.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-6Jtk38j9.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-BOTerVHk.css">
   </head>
   <body>
     <header></header>
@@ -27,18 +27,26 @@
         <button class="submit-btn" type="submit">Search</button>
       </form>
 
+      <!-- Елемент для модалки simplelightbox (галарея, велике зображення) -->
+      <ul class="gallery"></ul>
+
+      <!-- Кнопка дозавантаження (спочатку прихована класом is-hidden) -->
+      <button type="button" class="load-more submit-btn is-hidden">
+        Load more
+      </button>
+
       <!-- Елемент для css-loader (стилі в CSS, без зовнішньої бібліотеки) -->
       <div class="loader-overlay">
         <span class="loader"></span>
       </div>
-
-      <!-- Елемент для модалки simplelightbox -->
-      <ul class="gallery"></ul>
     </main>
 
     <footer class="footer">
       <div class="container">
-        <p class="footer-desc">Made with ✨ by Anna K.</p>
+        <p class="footer-desc">
+          Made with ✨ by <b>Anna K.</b> (images provide by
+          <a href="https://pixabay.com">"Pixabay"</a>)
+        </p>
       </div>
     </footer>
 
