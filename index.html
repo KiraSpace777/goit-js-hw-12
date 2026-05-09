@@ -8,7 +8,7 @@
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-BAQQTdrx.js">
     <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-CWKLx11g.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-gOJXbWBT.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-CV94c_jS.css">
   </head>
   <body>
     <header></header>
@@ -35,10 +35,33 @@
         Load more
       </button>
 
+      <!-- Додаємо цей абзац -->
+      <p class="images-counter is-hidden"></p>
+
       <!-- Елемент для css-loader (стилі в CSS, без зовнішньої бібліотеки) -->
       <div class="loader-overlay">
         <span class="loader"></span>
       </div>
+
+      <button
+        type="button"
+        class="back-to-top is-hidden"
+        id="backToTop"
+        title="Go to top"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m18 15-6-6-6 6" />
+        </svg>
+      </button>
     </main>
 
     <footer class="footer">
